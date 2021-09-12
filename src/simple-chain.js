@@ -5,24 +5,33 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default {
+  arr: [],
+
   getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.arr.length;
   },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  addLink(value) {
+    this.arr.push(`( ${value} )`)
+    return this
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  removeLink(position) {
+    for (let i=0;i<this.arr.length;i+=1) {
+      if (i>=position) {
+        this.arr[i]===this.arr[i+1]
+      }
+      return this.arr.pop()
+    }
   },
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let result =[]
+    for (let i=this.arr.length-1; i===0; i-=1) {
+      result.push(this.arr[i])
+    }
+    return result;
   },
   finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let finalchain = this.arr.join('~~');
+    this.arr=[];
+    return finalchain;
   }
 };

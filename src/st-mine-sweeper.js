@@ -23,7 +23,32 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function minesweeper (matrix) {
+  let result = Array(matrix.length).fill().map(()=>Array(matrix[0].length).fill())
+  for(let i=0;i<matrix.length;i+=1){
+    for(let j=0;j<matrix[i].length;j+=1){
+      let sum=0;
+      if(i===0&&j===0){
+        sum = Number(matrix[i][j+1])+Number(matrix[i+1][j])+Number(matrix[i+1][j+1])
+      } else if(i===0&&j>0&&j<matrix[i].length-1){
+        sum = Number(matrix[i][j-1])+Number(matrix[i+1][j-1])+Number(matrix[i][j+1])+Number(matrix[i+1][j])+Number(matrix[i+1][j+1])
+      } else if(i===0&&j===matrix[i].length-1){
+        sum = Number(matrix[i][j-1])+Number(matrix[i+1][j-1])+Number(matrix[i+1][j])
+      } else if(i>0&&i<matrix.length-1&&j===0){
+        sum = Number(matrix[i-1][j])+Number(matrix[i-1][j+1])+Number(matrix[i][j+1])+Number(matrix[i+1][j])+Number(matrix[i+1][j+1])
+      } else if(i>0&&i<matrix.length-1&&j>0&&j<matrix[i].length-1){
+        sum = Number(matrix[i-1][j-1])+Number(matrix[i-1][j])+Number(matrix[i-1][j+1])+Number(matrix[i][j-1])+Number(matrix[i][j+1])+Number(matrix[i+1][j-1])+Number(matrix[i+1][j])+Number(matrix[i+1][j+1])
+      } else if(i>0&&i<matrix.length-1&&j===matrix[i].length-1){
+        sum = Number(matrix[i-1][j-1])+Number(matrix[i-1][j])+Number(matrix[i][j-1])+Number(matrix[i+1][j-1])+Number(matrix[i+1][j])
+      } else if(i===matrix.length-1&&j===0){
+        sum = Number(matrix[i-1][j])+Number(matrix[i-1][j+1])+Number(matrix[i][j+1])
+      } else if(i===matrix.length-1&&j>0&&j<matrix[i].length-1){
+        sum = Number(matrix[i-1][j-1])+Number(matrix[i][j-1])+Number(matrix[i-1][j])+Number(matrix[i-1][j+1])+Number(matrix[i][j+1])
+      } else if(i===matrix.length-1&&j===matrix[i].length-1){
+        sum = Number(matrix[i-1][j-1])+Number(matrix[i-1][j])+Number(matrix[i][j-1])
+      }
+      result[i][j]=sum
+    }
+  }
+  return result
 }
