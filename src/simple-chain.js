@@ -10,27 +10,24 @@ export default {
   getLength() {
     return this.arr.length;
   },
-  addLink(value) {
-    this.arr.push(`( ${value} )`)
+  addLink(value='') {
+    this.arr.push(value)
     return this
   },
   removeLink(position) {
-    for (let i=0;i<this.arr.length;i+=1) {
-      if (i>=position) {
-        this.arr[i]===this.arr[i+1]
-      }
-      return this.arr.pop()
+    if (typeof (position) === 'number' && position > 0 && position < this.getLength()) {
+      this.arr.splice(position - 1, 1);
+      return this;
     }
+    this.arr=[];
+    throw new Error('You can\'t remove incorrect link!');
   },
   reverseChain() {
-    let result =[]
-    for (let i=this.arr.length-1; i===0; i-=1) {
-      result.push(this.arr[i])
-    }
-    return result;
+    this.arr = this.arr.reverse();
+    return this;
   },
   finishChain() {
-    let finalchain = this.arr.join('~~');
+    let finalchain = this.arr.map(el => `( ${el} )`).join('~~');
     this.arr=[];
     return finalchain;
   }
